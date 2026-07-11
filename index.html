@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>From Raziun to Fariha</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Playfair+Display:ital,wght@0,500;0,600;1,500;1,600&display=swap');
+
+    :root { --ink:#6b3d4d; --rose:#dd7e9e; --paper:#fff9f8; }
+    * { box-sizing:border-box; }
+    body { margin:0; min-height:100svh; overflow:hidden; color:var(--ink); background:#f8dce4; font-family:"DM Mono",monospace; }
+    .sky { position:fixed; inset:0; background:radial-gradient(circle at 50% 42%, rgba(255,255,255,.95), rgba(255,239,245,.83) 35%, #f5ccda 100%); }
+    .sky::after { content:""; position:absolute; inset:-15%; opacity:.18; background-image:linear-gradient(118deg,transparent 48%,#fff 49%,transparent 51%); background-size:31px 31px; mix-blend-mode:soft-light; }
+    .petals { position:absolute; inset:0; pointer-events:none; }
+    .petal { position:absolute; width:15px; height:12px; border-radius: 85% 15% 85% 15%; background:radial-gradient(circle at 30% 28%,#fff9fb 0 7%,#f2a1bb 27%,#dd759c 100%); box-shadow:0 2px 5px #bc6c8830; animation:float var(--d) ease-in-out var(--delay) infinite alternate; }
+    @keyframes float { to { transform:translate(var(--x),var(--y)) rotate(110deg); } }
+    main { position:relative; z-index:1; display:grid; place-items:center; min-height:100svh; padding:28px; }
+    .card { width:min(690px,100%); min-height:min(635px,calc(100svh - 56px)); padding:clamp(28px,6vw,58px); border:1px solid rgba(167,77,111,.18); border-radius:32px; background:rgba(255,252,252,.38); box-shadow:0 26px 65px rgba(140,63,92,.16), inset 0 1px rgba(255,255,255,.8); text-align:center; display:flex; flex-direction:column; align-items:center; justify-content:center; backdrop-filter:blur(8px); }
+    .eyebrow { font-size:10px; letter-spacing:.19em; text-transform:uppercase; opacity:.62; margin-bottom:26px; }
+    h1 { margin:0; font-family:"Playfair Display",serif; font-weight:500; font-size:clamp(2.8rem,8vw,5.4rem); line-height:.98; letter-spacing:-.055em; }
+    h1 em { display:block; font-style:italic; }
+    .intro { margin:22px 0 29px; max-width:365px; font-family:"Playfair Display",serif; font-size:clamp(1rem,2.5vw,1.2rem); font-style:italic; line-height:1.55; opacity:.84; }
+    .heart { display:inline-grid; place-items:center; width:21px; height:21px; margin-top:6px; color:#d9668b; animation:pulse 2.2s ease-in-out infinite; }
+    @keyframes pulse { 50% { transform:scale(1.22); } }
+    .open { margin-top:32px; border:0; border-radius:999px; padding:16px 25px; background:#80445b; color:#fffaf9; font:500 11px "DM Mono",monospace; letter-spacing:.13em; text-transform:uppercase; cursor:pointer; box-shadow:0 10px 18px #8b405831; transition:transform .25s, background .25s; }
+    .open:hover { transform:translateY(-3px); background:#683346; }
+    .hint { margin-top:17px; font-size:10px; letter-spacing:.08em; opacity:.48; }
+    .gift { display:none; width:100%; animation:enter .7s ease both; }
+    @keyframes enter { from { opacity:0; transform:translateY(12px); } }
+    .gift h2 { font-family:"Playfair Display",serif; font-size:clamp(2rem,5vw,3.3rem); font-weight:500; line-height:1; margin:0 0 12px; letter-spacing:-.04em; }
+    .gift p { max-width:410px; margin:0 auto; font-family:"Playfair Display",serif; font-style:italic; font-size:1.08rem; line-height:1.6; }
+    .bouquet { position:relative; height:255px; width:310px; margin:8px auto 18px; }
+    .stem { position:absolute; width:4px; height:155px; top:75px; left:154px; transform-origin:bottom; border-radius:50%; background:#769b79; }
+    .stem:nth-child(1){transform:rotate(-37deg)} .stem:nth-child(2){transform:rotate(-16deg)} .stem:nth-child(3){transform:rotate(14deg)} .stem:nth-child(4){transform:rotate(34deg)}
+    .flower { position:absolute; width:74px; height:74px; transform:scale(0); animation:bloom .7s cubic-bezier(.25,1.35,.5,1) forwards; }
+    @keyframes bloom { to { transform:scale(1); } }
+    .flower::before, .flower::after { content:""; position:absolute; inset:12px; border-radius:50%; background:currentColor; box-shadow:0 -19px 0 currentColor, 19px 0 0 currentColor, 0 19px 0 currentColor, -19px 0 0 currentColor, 13px -13px 0 currentColor, -13px 13px 0 currentColor, 13px 13px 0 currentColor, -13px -13px 0 currentColor; }
+    .flower::after { inset:29px; background:#f6c85d; box-shadow:none; }
+    .f1{left:48px;top:69px;color:#e994a5;animation-delay:.1s}.f2{left:108px;top:26px;color:#b993cf;animation-delay:.28s}.f3{left:174px;top:62px;color:#f2b65d;animation-delay:.45s}.f4{left:115px;top:103px;color:#84b6ab;animation-delay:.62s}.f5{left:201px;top:121px;color:#df87b3;animation-delay:.76s}
+    .signature { margin-top:24px!important; font-size:.9rem!important; opacity:.72; }
+    .restart { margin-top:24px; background:transparent; border:0; color:#8b5265; text-decoration:underline; font:10px "DM Mono",monospace; cursor:pointer; }
+    body.opened .welcome { display:none; } body.opened .gift { display:block; }
+    @media (max-height:700px) { .card{min-height:0;padding:27px}.bouquet{transform:scale(.77);height:190px;margin:-11px auto -5px}.intro{margin:13px 0}.open{margin-top:17px}.eyebrow{margin-bottom:13px} }
+  </style>
+</head>
+<body>
+  <div class="sky"></div><div class="petals" aria-hidden="true"></div>
+  <main>
+    <section class="card" aria-live="polite">
+      <div class="welcome">
+        <div class="eyebrow">a little something, just for you</div>
+        <h1>From Raziun<em>to Fariha.</em></h1>
+        <div class="heart">♡</div>
+        <p class="intro">It’s nothing big — only a small reminder that you make ordinary days feel a little more beautiful, Fariha.</p>
+        <button class="open" type="button">Open your little gift</button>
+        <div class="hint">tap when you’re ready</div>
+      </div>
+      <div class="gift">
+        <div class="eyebrow">you opened it</div>
+        <h2>Flowers for you.</h2>
+        <p>For every time you made me smile, for every soft moment, and simply because you deserve beautiful things.</p>
+        <div class="bouquet" aria-label="A bouquet of colourful flowers">
+          <span class="stem"></span><span class="stem"></span><span class="stem"></span><span class="stem"></span>
+          <span class="flower f1"></span><span class="flower f2"></span><span class="flower f3"></span><span class="flower f4"></span><span class="flower f5"></span>
+        </div>
+        <p class="signature">with all my love, Raziun ♡</p>
+        <button class="restart" type="button">read it again</button>
+      </div>
+    </section>
+  </main>
+  <script>
+    const petals = document.querySelector('.petals');
+    for (let i = 0; i < 24; i++) {
+      const petal = document.createElement('i'); petal.className = 'petal';
+      petal.style.cssText = `left:${Math.random()*100}%;top:${Math.random()*100}%;--d:${4+Math.random()*6}s;--delay:-${Math.random()*8}s;--x:${-35+Math.random()*70}px;--y:${-28+Math.random()*56}px;transform:rotate(${Math.random()*180}deg) scale(${.55+Math.random()*.75})`;
+      petals.appendChild(petal);
+    }
+    document.querySelector('.open').onclick = () => document.body.classList.add('opened');
+    document.querySelector('.restart').onclick = () => document.body.classList.remove('opened');
+  </script>
+</body>
+</html>
